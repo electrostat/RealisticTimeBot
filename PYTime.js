@@ -119,17 +119,108 @@ controller.hears(['(.*) months'], 'direct_message,direct_mention,mention,ambient
 	bot.reply(message, "They really mean " + number + ' months');
 });
 
-controller.hears(['test (.*)'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
+controller.hears(['sunday'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
 	
-	var word = message.match[1];
+    var date = new Date();
+	var today = date.getDay();
+	var theDay = 0;
 	
-	var type = typeof word;
+	var newDay = adjustDay(today, theDay);
 	
-	var number = convertWord(word);
-	var typeNum = typeof number;
+	var wordDay = translateDay(newDay);
 	
-	bot.reply(message, "Converted " + word + " = " + number + " types: " + type + " = " + typeNum);
+	bot.reply(message, "They really mean " + wordDay);
 });
+
+controller.hears(['monday'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
+	
+    var date = new Date();
+	var today = date.getDay();
+	var theDay = 1;
+	
+	var newDay = adjustDay(today, theDay);
+	
+	var wordDay = translateDay(newDay);
+	
+	bot.reply(message, "They really mean " + wordDay);
+});
+
+controller.hears(['tuesday'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
+	
+    var date = new Date();
+	var today = date.getDay();
+	var theDay = 2;
+	
+	var newDay = adjustDay(today, theDay);
+	
+	var wordDay = translateDay(newDay);
+	
+	bot.reply(message, "They really mean " + wordDay);
+});
+
+controller.hears(['wednesday'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
+	
+    var date = new Date();
+	var today = date.getDay();
+	var theDay = 3;
+	
+	var newDay = adjustDay(today, theDay);
+	
+	var wordDay = translateDay(newDay);
+	
+	bot.reply(message, "They really mean " + wordDay);
+});
+
+controller.hears(['thursday'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
+	
+    var date = new Date();
+	var today = date.getDay();
+	var theDay = 4;
+	
+	var newDay = adjustDay(today, theDay);
+	
+	var wordDay = translateDay(newDay);
+	
+	bot.reply(message, "They really mean " + wordDay);
+});
+
+controller.hears(['friday'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
+	
+    var date = new Date();
+	var today = date.getDay();
+	var theDay = 5;
+	
+	var newDay = adjustDay(today, theDay);
+	
+	var wordDay = translateDay(newDay);
+	
+	bot.reply(message, "They really mean " + wordDay);
+});
+
+controller.hears(['saturday'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
+	
+    var date = new Date();
+	var today = date.getDay();
+	var theDay = 6;
+	
+	var newDay = adjustDay(today, theDay);
+	
+	var wordDay = translateDay(newDay);
+	
+	bot.reply(message, "They really mean " + wordDay);
+});
+
+// controller.hears(['test (.*)'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
+//
+// 	var word = message.match[1];
+//
+// 	var type = typeof word;
+//
+// 	var number = convertWord(word);
+// 	var typeNum = typeof number;
+//
+// 	bot.reply(message, "Converted " + word + " = " + number + " types: " + type + " = " + typeNum);
+// });
 
 
 //number to word replacement code
@@ -201,9 +292,58 @@ function convertWord(word){
 	        num = 30;
 	        break;
 	    default:
-	        num = 0;
+	        num = word;
 	}
 	
 	return num;	
+}
+
+function adjustDay(today, theDay){
+	if(today > theDay){
+		theDay = theDay + 7;
+	}
+	
+	var diff = theDay - today;
+	var adjust = diff * 2;
+	
+	var newDay = today + adjust;
+	
+	if(newDay > 6){
+		newDay = newDay - 7;
+	}
+	
+	return newDay;
+}
+
+
+function translateDay(dayNum){
+	var day = "Sunday";
+	
+	switch(dayNum) {
+	    case 0:
+	        day = "Sunday";
+	        break;
+	    case 1:
+	        day = "Monday";
+	        break;
+	    case 2:
+	        day = "Tuesday";
+	        break;
+	    case 3:
+	        day = "Wednesday";
+	        break;
+	    case 4:
+	        day = "Thursday";
+	        break;
+	    case 5:
+	        day = "Friday";
+	        break;
+	    case 6:
+	        day = "Saturday";
+	        break;
+	    default:
+	        day = "Unknown";
+	}
+	return day;
 }
 
