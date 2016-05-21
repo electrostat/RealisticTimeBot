@@ -210,6 +210,54 @@ controller.hears(['saturday'], 'direct_message,direct_mention,mention,ambient', 
 	bot.reply(message, "They really mean " + wordDay);
 });
 
+//actual time listener
+controller.hears(['(.*):(.*)'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
+	
+	var before = message.match[1];
+	var after = message.match[2];
+	var words = before.split(" ");
+	var words2 = after.split(" ");
+	
+	var firstNumber = words[words.length-1];
+	var secondNumber = words2[0];
+	
+	
+	//convert word to number
+	var type = typeof firstNumber;
+	if(type == "string"){
+		firstNumber = Number(convertWord(firstNumber));
+	}
+	
+	var type2 = typeof secondNumber;
+	if(type2 == "string"){
+		secondNumber = Number(convertWord(secondNumber));
+	}
+	
+	//add 20 minutes to the time
+	secondNumber = secondNumber + 20;
+	
+	var secondString = "";
+	
+	if(secondNumber > 60){
+		secondNumber = secondNumber - 60;
+		firstNumber = firstNumber + 1;
+		
+		if(firstNumber > 12){
+			firstNumber = firstNumber - 12;
+		}
+	}
+	
+	var newTime = "";
+	
+	if(secondNumber < 10){
+		newTime = firstNumber + ":0" + secondNumber;
+	}else{
+		newTime = firstNumber + ":" + secondNumber;
+	}
+	
+	bot.reply(message, "They'll be ready at " + newTime);
+});
+
 // controller.hears(['test (.*)'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
 //
 // 	var word = message.match[1];
