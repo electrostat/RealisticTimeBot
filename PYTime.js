@@ -195,6 +195,7 @@ controller.hears(['friday'], 'direct_message,direct_mention,mention,ambient', fu
 	var wordDay = translateDay(newDay);
 	
 	bot.reply(message, "They really mean " + wordDay);
+	// bot.reply(message, "They really mean " + wordDay + ": today-" + today + ", theDay- " + theDay + ", newDay- " + newDay);
 });
 
 controller.hears(['saturday'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
@@ -390,7 +391,7 @@ function translateDay(dayNum){
 	        day = "Saturday";
 	        break;
 	    default:
-	        day = "Unknown";
+	        day = translateDay(dayNum - 7);
 	}
 	return day;
 }
