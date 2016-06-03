@@ -213,12 +213,13 @@ controller.hears(['saturday'], 'direct_message,direct_mention,mention,ambient', 
 
 //actual time listener
 controller.hears(['(.*):(.*)'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
-	
+
 	var before = message.match[1];
-	if(before == "<http"){
-		//do nothing URL
-	}else if(before == "<https"){
-		//still URL
+    var words = before.split(" ");
+    var lastWord =  words[words.length - 1];
+
+	if(isNaN(lastWord)){
+		//do nothing
 	}else{
 		var after = message.match[2];
 		var words = before.split(" ");
